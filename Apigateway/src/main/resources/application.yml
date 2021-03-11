@@ -1,0 +1,25 @@
+
+server:
+  port: 7777
+  
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+      
+spring:
+  application:
+    name: apigateway
+  cloud:
+    gateway:
+      routes:
+      - id: user
+        uri: lb://userservice
+        predicates:
+        - Path=/user/**
+      - id: book
+        uri: lb://booking-service
+        predicates:
+        - Path=/book/**  
